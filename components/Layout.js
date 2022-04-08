@@ -7,10 +7,9 @@ export default function Layout({ children }) {
         <Link href="/">
           <a>
             <h1>
-              <span>Just Add</span>
-              <span>Marmite</span>
+              <span>The</span>
+              <span>Scran Man</span>
             </h1>
-            <h2>Spread The Joy</h2>
           </a>
         </Link>
       </header>
@@ -20,7 +19,7 @@ export default function Layout({ children }) {
       </div>
 
       <footer>
-        <p>Copyright {new Date().getFullYear()} Just Add Marmite :)</p>
+        <p>Copyright {new Date().getFullYear()} ScranMan :)</p>
       </footer>
     </div>
   )
