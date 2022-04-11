@@ -1,24 +1,26 @@
+import { FaRegClock } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
 
 function RecipeCard({recipe}) {
-    const {title, slug, cookingTime, thumbnail} = recipe.fields;
-    
+  console.log(recipe);
+  const {title, slug, cookingTime, thumbnail} = recipe;
 
     return (
         <div className='card'>
             <div className="featured">
-                { (thumbnail.fields) && 
+                { thumbnail && 
                 <Image
-                width={thumbnail.fields.file.details.image.width+'px'}
-                height={thumbnail.fields.file.details.image.height+'px'} 
-                src={`https:${thumbnail.fields.file.url}`} 
-                alt={thumbnail.fields.title} /> }
+                width={thumbnail.width}
+                height={thumbnail.height} 
+                src={`${thumbnail.url}`} 
+                alt={thumbnail.title} /> }
             </div>
             <div className="content">
                 <div className="info">
                     <h2>{title}</h2>
                     <p>Takes approx {cookingTime} mins to make</p>
+                    <FaRegClock style={{position: 'absolute', borderRadius: '10em', padding: '.5em', marginTop:'.5em', color: '#000', background:'#f4e640', boxShadow: '0px 2px 0 0 #dace44' }} />
                 </div>
                 <div className="actions">
                     <Link href={`/recipes/${slug}`} >
@@ -60,6 +62,14 @@ function RecipeCard({recipe}) {
           background: #f01b29;
           padding: 16px 24px;
           text-decoration: none;
+          transition: all .2s ease;
+        }
+        .actions a:hover {
+          color: #fff;
+          background: #b30c17;
+          padding: 16px 24px;
+          text-decoration: none;
+          transform: scale(1.1);
         }
       `}</style>
             

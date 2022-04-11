@@ -6,20 +6,18 @@ export default function Layout({ children }) {
       <header>
         <Link href="/">
           <a>
-            <h1>
               <span>The</span>
               <span>Scran Man</span>
-            </h1>
           </a>
         </Link>
       </header>
 
-      <div className="page-content">
+      <main id="main" className="page-content">
         { children }
-      </div>
+      </main>
 
       <footer>
-        <p>Copyright {new Date().getFullYear()} ScranMan :)</p>
+        <p>Copyright {new Date().getFullYear()} <strong><em>ScranMan</em></strong> :)</p>
       </footer>
     </div>
   )
