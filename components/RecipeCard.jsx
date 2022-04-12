@@ -9,12 +9,10 @@ function RecipeCard({ recipe }) {
           <div className="featured">
               { thumbnail && 
               <Image
-              placeholder="blur"
-              blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
-              width={thumbnail.width}
-              height={thumbnail.height} 
-              src={`${thumbnail.url}`} 
-              alt={thumbnail.title} /> }
+                width={thumbnail.width}
+                height={thumbnail.height} 
+                src={`${thumbnail.url}`} 
+                alt={thumbnail.title} /> }
           </div>
           <div className="content">
               <div className="info">

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { gql } from "@apollo/client";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { getPlaiceholder } from "plaiceholder";
 import { client } from '../../api/helpers'
 
 
@@ -44,9 +45,10 @@ export async function getStaticProps({ params }) {
             json
           }
           featuredImage {
-            url(transform:{format: WEBP})
+            url(transform: {format: WEBP})
             width
             height
+            title
           }
         }
       }
@@ -54,29 +56,34 @@ export async function getStaticProps({ params }) {
     `
   })
 
+  const {img, base64} = await getPlaiceholder(item.data.recipeCollection.items[0].featuredImage.url, {size: 4})
+
   return {
     props: {
-      recipe: item.data.recipeCollection.items[0]
+      recipe: item.data.recipeCollection.items[0],
+      placeholder: {
+        img,
+        base64
+      }
     }
   }
 }
 
 
-export default function RecipeDetails({ recipe }) {
+export default function RecipeDetails({ recipe, placeholder }) {
   const { title, ingredients, featuredImage, cookingTime, method } = recipe
-
+  console.log('placeholder', placeholder);
   return (
     <div>
       <div className="banner">
-        { featuredImage && 
         <Image
-          placeholder="blur"
-          blurDataURL={'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='}
-          src={`${featuredImage.url}`}
+          placeholder='blur'
+          blurDataURL={`${placeholder.base64}`}
+          alt={title}
+          src={placeholder.img.src}
           width={featuredImage.width}
-          height={featuredImage.height}
-        />}
-        <h2>{title}</h2>
+          height={featuredImage.height} />
+        <h1>{title}</h1>
       </div>
       <div className="info">
         <p>Takes around {cookingTime} mins to prepare</p>
@@ -95,11 +102,11 @@ export default function RecipeDetails({ recipe }) {
         h2,h3 {
           text-transform: uppercase;
         }
-        .banner h2 {
+        .banner h1 {
           margin: 0;
           background: #fff;
           display: inline-block;
-          padding: 20px;
+          padding: 1rem 20px;
           position: relative;
           top: -60px;
           left: -10px;
