@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { client } from '../api/helpers'
 import RecipeCard from "../components/RecipeCard";
+import { getPlaiceholder } from "plaiceholder";
 
 export async function getStaticProps() {
 
@@ -26,18 +27,26 @@ export async function getStaticProps() {
     `
   })
 
+  const upData = await Promise.all(data.recipeCollection.items.map(async item => {
+    try {
+      const { base64 } = await getPlaiceholder(item.thumbnail.url, {size: 5});
+      return {...item, placeholder: base64};
+    } catch(err) {
+       throw err;
+    }
+  }));
+
   return {
     props: {
-      data
+      data: upData
     }
   };
 }
 
 export default function App({ data }) {
-  const {items: foods} = data.recipeCollection;
   return (
     <div className="recipe-list">
-      {foods.map((recipe, i) =>( 
+      {data.map((recipe, i) => (
         <RecipeCard recipe={recipe} key={i} className="recipe" />
       ))
     }

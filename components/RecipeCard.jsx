@@ -3,12 +3,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 function RecipeCard({ recipe }) {
-  const {title, slug, cookingTime, thumbnail} = recipe;
+  const {title, slug, cookingTime, thumbnail, placeholder} = recipe;
   return (
       <div className='card'>
           <div className="featured">
               { thumbnail && 
               <Image
+                placeholder='blur'
+                blurDataURL={`${placeholder}`}
                 width={thumbnail.width}
                 height={thumbnail.height} 
                 src={`${thumbnail.url}`} 
