@@ -65,7 +65,8 @@ export async function getStaticProps({ params }) {
         img,
         base64
       }
-    }
+    },
+    revalidate: 10,
   }
 }
 

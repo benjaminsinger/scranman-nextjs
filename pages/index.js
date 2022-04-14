@@ -28,19 +28,16 @@ export async function getStaticProps() {
   })
 
   const upData = await Promise.all(data.recipeCollection.items.map(async item => {
-    try {
       const { base64 } = await getPlaiceholder(item.thumbnail.url, {size: 5});
       return {...item, placeholder: base64};
-    } catch(err) {
-       throw err;
-    }
   }));
 
   return {
     props: {
       data: upData
-    }
-  };
+    },
+    revalidate: 10,
+  }
 }
 
 export default function App({ data }) {
