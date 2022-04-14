@@ -27,7 +27,7 @@ export async function getStaticPaths() {
 
   return {
      paths,
-     fallback: false,
+     fallback: true, // for paths that don't exist at build time
   };
 }
 
